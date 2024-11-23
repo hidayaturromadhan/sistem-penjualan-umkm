@@ -7,7 +7,7 @@
             <h1>Dashboard</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active">
-                    <a href="#">Dashboard</a>
+                    <a href="{{ route('admin.dashboard') }}" style="color: #1A5F3C;">Dashboard</a>
                 </div>
             </div>
         </div>

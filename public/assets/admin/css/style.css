@@ -1006,9 +1006,9 @@ table tr:hover .table-links {
 
 /* 3.9 Nav */
 .nav-tabs .nav-item .nav-link {
-  color: #6777ef; }
+  color: #1A5F3C; }
   .nav-tabs .nav-item .nav-link.active {
-    color: #000; }
+    color: #1A5F3C; }
 
 .tab-content > .tab-pane {
   padding: 10px 0;
@@ -1021,9 +1021,9 @@ table tr:hover .table-links {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #6777ef; }
+  background-color: #1A5F3C; }
 .nav-pills .nav-item .nav-link {
-  color: #6777ef;
+  color: #1A5F3C;
   padding-left: 15px !important;
   padding-right: 15px !important; }
   .nav-pills .nav-item .nav-link:hover {
@@ -1031,7 +1031,7 @@ table tr:hover .table-links {
   .nav-pills .nav-item .nav-link.active {
     box-shadow: 0 2px 6px #acb5f6;
     color: #fff;
-    background-color: #6777ef; }
+    background-color: #1A5F3C; }
   .nav-pills .nav-item .nav-link .badge {
     padding: 5px 8px;
     margin-left: 5px; }
@@ -1042,16 +1042,16 @@ table tr:hover .table-links {
 
 /* 3.10 Pagination */
 .page-item .page-link {
-  color: #6777ef;
+  color: #1A5F3C;
   border-radius: 3px;
   margin: 0 3px; }
 .page-item.active .page-link {
-  background-color: #6777ef;
-  border-color: #6777ef; }
+  background-color: #1A5F3C;
+  border-color: #1A5F3C; }
 .page-item.disabled .page-link {
   border-color: transparent;
   background-color: #f9fafe;
-  color: #6777ef;
+  color: #1A5F3C;
   opacity: .6; }
 
 .page-link {

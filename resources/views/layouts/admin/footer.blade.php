@@ -5,7 +5,7 @@
             var CurrentYear = new Date().getFullYear();
             document.write(CurrentYear);
         </script>
-        1 designed & developed by 
-        <a href="#" class="text-muted">Admin</a>
+         designed & developed by 
+        <a href="{{ route('admin.dashboard') }}" class="text-muted">Admin</a>
     </div>
 </footer>

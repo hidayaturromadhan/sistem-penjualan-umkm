@@ -24,6 +24,7 @@
   </script>
 
   <title>@yield('title')</title>
+
 </head>
 <body>
   @include('sweetalert::alert')

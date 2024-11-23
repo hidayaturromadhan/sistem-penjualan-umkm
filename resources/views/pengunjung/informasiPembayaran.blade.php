@@ -32,7 +32,7 @@
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{{ route('pengunjung.beranda') }}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('assets/user/img/logo.png') }}" alt="logo" width="100%"> 
         <h1 class="sitename">Firdaus</h1>
@@ -71,38 +71,37 @@
     </div><!-- End Page Title -->
 
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
+   <!-- Contact Section -->
+<section id="contact" class="contact section" style="display: flex; justify-content: center; align-items: center; text-align: left; ">
 
-      <div class="container" data-aos="fade">
+<div class="container" data-aos="fade">
 
-        <div class="row justify-content-center gx-lg-5">
+  <div class="row justify-content-center gx-lg-4">
 
-          <div class="col-lg-8">
+    <div class="col-lg-3">
 
-            <div class="info">
-              <h3 style="text-align: center;">Informasi Pembayaran</h3>
-              <div class="info-item d-flex">
-                <div>
-                  <ol>
-                    <li>Pilih produk yang ingin dibeli</li>
-                    <li>Pesan produk melalui <a href="#">nomor whatsapp</a></li>
-                    <li>Bayar produk langsung ke toko</li>
-                  </ol>
-                </div>
-               
-            
-              </div><!-- End Info Item -->
-
-            </div>
-
+      <div class="info">
+        <h3>Informasi Pembayaran</h3>
+        <div class="info-item">
+          <div>
+            <ol style="list-style-position: inside; padding: 0;">
+              <li>Pilih produk yang ingin dibeli</li>
+              <li>Pesan produk melalui <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi">nomor whatsapp</a></li>
+              <li>Bayar produk langsung ke toko</li>
+            </ol>
           </div>
-
-        </div>
+        </div><!-- End Info Item -->
 
       </div>
 
-    </section><!-- /Contact Section -->
+    </div>
+
+  </div>
+
+</div>
+
+</section><!-- /Contact Section -->
+
 
   </main>
 
@@ -111,7 +110,7 @@
         <div class="row g-4">
           <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
             <div class="widget">
-              <a href="index.html" class="logo d-flex align-items-center">
+              <a href="{{ route('pengunjung.beranda') }}" class="logo d-flex align-items-center">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <img src="{{ asset('assets/user/img/logo.png') }}" alt="logo"> 
                 <h1 class="footer-name">Firdaus</h1>
@@ -125,14 +124,14 @@
             <div class="widget">
               <h3 class="widget-heading">Menu</h3>
               <ul class="list-unstyled float-start me-3">
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="produkBuah.html">Buah</a></li>
-                <li><a href="produkSayur.html">Sayur</a></li>
+                <li><a href="{{ route('pengunjung.beranda') }}">Beranda</a></li>
+                <li><a href="{{ route('pengunjung.produkBuah') }}">Buah</a></li>
+                <li><a href="{{ route('pengunjung.produkSayur') }}">Sayur</a></li>
               </ul>
               <ul class="list-unstyled float-start">
-                <li><a href="informasiPembayaran.html">Informasi Pembayaran</a></li>
-                <li><a href="tentang.html">Tentang</a></li>
-                <li><a href="kontak.html">Kontak</a></li>
+                <li><a href="{{ route('pengunjung.informasiPembayaran') }}">Informasi Pembayaran</a></li>
+                <li><a href="{{ route('pengunjung.tentang') }}">Tentang</a></li>
+                <li><a href="{{ route('pengunjung.kontak') }}">Kontak</a></li>
               </ul>
             </div>
           </div>
@@ -141,10 +140,10 @@
               <h3 class="widget-heading">Media Sosial</h3>
               <ul class="list-unstyled social-icons light mb-3">
                 <li>
-                  <a href="#"><span class="bi bi-instagram"></span></a>
+                  <a href="https://www.instagram.com/flavatopia_"><span class="bi bi-instagram"></span></a>
                 </li>
                 <li>
-                  <a href="#"><span class="bi bi-whatsapp"></span></a>
+                  <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi"><span class="bi bi-whatsapp"></span></a>
                 </li>
               </ul>
             </div>
@@ -161,7 +160,9 @@
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <div id="preloader"></div>
+  <div id="preloader">
+    <img src="{{ asset('assets/user/img/logo.png') }}" alt="Logo" class="preloader-logo" />
+  </div>
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets/user/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

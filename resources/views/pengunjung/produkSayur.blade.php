@@ -32,7 +32,7 @@
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{{ route('pengunjung.beranda') }}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('assets/user/img/logo.png') }}" alt="logo" width="100%"> 
         <h1 class="sitename">Firdaus</h1>
@@ -40,8 +40,8 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="{{ route('pengunjung.beranda') }}" class="active">Beranda</a></li>
-          <li class="dropdown"><a href="#"><span>Produk</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li><a href="{{ route('pengunjung.beranda') }}">Beranda</a></li>
+          <li class="dropdown"><a href="#"><span class="active">Produk</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="{{ route('pengunjung.produkBuah') }}">Buah</a></li>
               <li><a href="{{ route('pengunjung.produkSayur') }}">Sayur</a></li>
@@ -81,7 +81,7 @@
     </div>
   </div>
 
-  <!-- Produk Buah Section -->
+  <!-- Produk Sayur Section -->
   <section id="produk-buah" class="produk-buah">
     <div class="container mt-3">
         <div class="row gy-4">
@@ -89,9 +89,9 @@
           <div class="col-lg-3 col-md-6">
             <a href="link1.html" class="card-link">
               <div class="buah-item">
-                <img src="/assets/img/pisang.jpg" alt="Gambar Produk" class="card-img">
-                <h4>Pisang</h4>
-                <p class="harga-produk">Rp 15,000 <span class="bobot-produk">/ Kg</span></p>
+                <img src="{{ asset('assets/user/img/bawang_putih.jpg') }}" alt="Gambar Produk" class="card-img">
+                <h4>Bawang Putih</h4>
+                <p class="harga-produk">Rp 15,000 <span class="bobot-produk">/ Gram</span></p>
                 <div class="divider"></div>
                 <p class="status-tersedia">Tersedia</p> 
               </div>
@@ -103,9 +103,9 @@
           <div class="col-lg-3 col-md-6">
             <a href="link2.html" class="card-link">
               <div class="buah-item">
-                <img src="/assets/img/jeruk.jpg" alt="Gambar Produk" class="card-img">
-                <h4>Jeruk</h4>
-                <p class="harga-produk">Rp 10,000 <span class="bobot-produk">/ Kg</span></p>
+                <img src="{{ asset('assets/user/img/bawang_merah.jpg') }}" alt="Gambar Produk" class="card-img">
+                <h4>Bawang Merah</h4>
+                <p class="harga-produk">Rp 10,000 <span class="bobot-produk">/ Gram</span></p>
                 <div class="divider"></div>
                 <p class="status-habis">Stok Habis</p> 
               </div>
@@ -113,7 +113,7 @@
           </div>
 
           <!-- Card 3 -->
-          <div class="col-lg-3 col-md-6">
+          <!-- <div class="col-lg-3 col-md-6">
             <a href="link4.html" class="card-link">
               <div class="buah-item">
                 <img src="/assets/img/pear.jpg" alt="Gambar Produk" class="card-img">
@@ -123,10 +123,10 @@
                 <p class="status-habis">Stok Habis</p> 
               </div>
             </a>
-          </div>
+          </div> -->
 
           <!-- Card 4 -->
-          <div class="col-lg-3 col-md-6">
+          <!-- <div class="col-lg-3 col-md-6">
             <a href="link4.html" class="card-link">
               <div class="buah-item">
                 <img src="/assets/img/pear.jpg" alt="Gambar Produk" class="card-img">
@@ -136,13 +136,13 @@
                 <p class="status-tersedia">Tersedia</p> 
               </div>
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
   </section><!-- /Produk Buah Section -->
 
-  <!-- Cara Beli Section -->
+ <!-- Cara Beli Section -->
 <section id="cara-beli" class="cara-beli bg-light py-5">
   <div class="container">
     <h2 class="text-center mb-4">Cara Membeli Produk</h2>
@@ -172,8 +172,7 @@
             <span class="bi bi-cash-coin" style="font-size: 2em; color: #1A5F3C;"></span>
           </div>
           <h5>Lakukan Pembayaran</h5>
-          <p>Pembayaran melalui cash dan Qris. 
-            Jika Qris silahkan cek <a href="informasiPembayaran.html">informasi pembayaran</a></p>
+          <p>Pembayaran melalui cash <a href="{{ route('pengunjung.informasiPembayaran') }}">informasi pembayaran</a></p>
         </div>
       </div>
     </div>
@@ -186,7 +185,7 @@
         <div class="row g-4">
           <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
             <div class="widget">
-              <a href="index.html" class="logo d-flex align-items-center">
+              <a href="{{ route('pengunjung.beranda') }}" class="logo d-flex align-items-center">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <img src="{{ asset('assets/user/img/logo.png') }}" alt="logo"> 
                 <h1 class="footer-name">Firdaus</h1>
@@ -200,14 +199,14 @@
             <div class="widget">
               <h3 class="widget-heading">Menu</h3>
               <ul class="list-unstyled float-start me-3">
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="produkBuah.html">Buah</a></li>
-                <li><a href="produkSayur.html">Sayur</a></li>
+                <li><a href="{{ route('pengunjung.beranda') }}">Beranda</a></li>
+                <li><a href="{{ route('pengunjung.produkBuah') }}">Buah</a></li>
+                <li><a href="{{ route('pengunjung.produkSayur') }}">Sayur</a></li>
               </ul>
               <ul class="list-unstyled float-start">
-                <li><a href="informasiPembayaran.html">Informasi Pembayaran</a></li>
-                <li><a href="tentang.html">Tentang</a></li>
-                <li><a href="kontak.html">Kontak</a></li>
+                <li><a href="{{ route('pengunjung.informasiPembayaran') }}">Informasi Pembayaran</a></li>
+                <li><a href="{{ route('pengunjung.tentang') }}">Tentang</a></li>
+                <li><a href="{{ route('pengunjung.kontak') }}">Kontak</a></li>
               </ul>
             </div>
           </div>
@@ -216,7 +215,7 @@
               <h3 class="widget-heading">Media Sosial</h3>
               <ul class="list-unstyled social-icons light mb-3">
                 <li>
-                  <a href="#"><span class="bi bi-instagram"></span></a>
+                  <a href="https://www.instagram.com/flavatopia_"><span class="bi bi-instagram"></span></a>
                 </li>
                 <li>
                   <a href="#"><span class="bi bi-whatsapp"></span></a>
@@ -236,7 +235,9 @@
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <div id="preloader"></div>
+  <div id="preloader">
+    <img src="{{ asset('assets/user/img/logo.png') }}" alt="Logo" class="preloader-logo" />
+  </div>
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets/user/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

@@ -164,10 +164,18 @@
                     <span class="brand-name">Firdaus</span>
                 </div>
                 <h3>Sign in for admin</h3>
+
+                <!-- Error message here -->
+                @if ($errors->has('login'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('login') }}
+                    </div>
+                @endif
+
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <label for="username">Username</label>
-                    <input type="username" id="username" name="username" required>
+                    <input type="username" id="username" name="username" value="{{ old('username') }}" required>
 
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
@@ -187,5 +195,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 
 </html>

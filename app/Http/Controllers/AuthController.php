@@ -16,13 +16,15 @@ class AuthController extends Controller
     // Proses otentikasi
     public function authenticate(Request $request)
     {
+        // Validasi input
         $credentials = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
+            'username' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
         ]);
 
+        // Cek kredensial dan login
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+            $request->session()->regenerate(); // Regenerasi session agar tidak ada session yang ditumpuk
 
             // Redirect berdasarkan peran
             $user = Auth::user();
@@ -32,12 +34,12 @@ class AuthController extends Controller
                 return redirect()->route('kasir.dashboard');
             }
 
+            // Redirect user biasa
             return redirect()->intended('/');
         }
 
-        return back()->withErrors([
-            'username' => 'Username atau password salah.',
-        ]);
+        // Jika login gagal, kembali ke halaman login dengan error
+        return back()->withErrors(['login' => 'Username atau password salah!'])->withInput();
     }
 
     // Logout

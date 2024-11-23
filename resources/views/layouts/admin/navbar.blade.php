@@ -1,5 +1,5 @@
-<div class="navbar-bg"></div>
-<nav class="navbar navbar-expand-lg main-navbar">
+<div class="navbar-bg" style="background-color: #1A5F3C;"></div>
+<nav class="navbar navbar-expand-lg main-navbar" style="background-color: #1A5F3C;">
     <form class="form-inline mr-auto">
         <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg" id="sidebar-toggle"><i class="fas fa-bars"></i></a></li>
@@ -9,7 +9,6 @@
         <ul class="navbar-nav mr-3">
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-user">
-                    <!-- <img alt="image" src="{{ asset('assets/admin/img/avatar-1.png') }}" class="rounded-circle mr-1"> -->
                     <div class="d-sm-none d-lg-inline-block">Hi, Admin</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">

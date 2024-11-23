@@ -5,7 +5,7 @@
             var CurrentYear = new Date().getFullYear();
             document.write(CurrentYear);
         </script>
-        1 designed & developed by 
-        <a href="#" class="text-muted">Kasir</a>
+        designed & developed by 
+        <a href="{{ route('kasir.dashboard') }}" class="text-muted">Kasir</a>
     </div>
 </footer>
