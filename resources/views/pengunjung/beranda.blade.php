@@ -73,7 +73,7 @@
               Produk Berkualitas
             </h6>
             <p class="mt-5" data-aos="fade-up" style="color: #1A5F3C;">
-              <a href="#">Dapatkan Produknya Disini!</a>
+              <a href="{{ route('pengunjung.produkBuah') }}">Dapatkan Produknya Disini!</a>
             </p>
           </div>
         </div>

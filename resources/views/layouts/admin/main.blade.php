@@ -8,11 +8,26 @@
   <link rel="stylesheet" href="{{ asset('assets/admin/modules/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/admin/modules/fontawesome/css/all.min.css') }}">
 
+  <!-- Favicons -->
+  <link href="{{ asset('assets/user/img/logo.png') }}" rel="icon">
+  <link href="{{ asset('assets/user/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
   <!-- CSS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/admin/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/admin/css/components.css') }}">
+
+  <style>
+        /* Menambahkan efek hover pada tombol pagination */
+        .pagination .page-link:hover {
+            background-color: #d3d3d3; /* Warna abu-abu */
+            border-color: #d3d3d3; /* Warna border yang sama */
+            color: #333; /* Warna teks */
+        }
+  </style>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>

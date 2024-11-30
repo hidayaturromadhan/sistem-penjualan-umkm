@@ -148,11 +148,13 @@
             .login-form {
                 padding: 20px;
             }
+
         }
     </style>
 </head>
 
 <body>
+    
     <div class="container">
         <div class="login-container row mx-auto">
             <div class="login-image col-md-6 d-none d-md-block">
@@ -192,6 +194,12 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @include('sweetalert::alert') <!-- SweetAlert directive -->
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

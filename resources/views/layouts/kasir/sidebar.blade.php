@@ -9,8 +9,8 @@
             <li class="menu-header">Menu</li>
             <li class="{{ Route::is('kasir.dashboard') }}"><a class="nav-link" style="color: #1A5F3C;" href="{{ route('kasir.dashboard') }}"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
             <!-- Menu Transaksi -->
-            <li class="#">
-            <a class="nav-link" style="color: #1A5F3C;" href="#"><i class="fas fa-receipt"></i> 
+            <li class="{{ Route::is('kasir.transaksi.index') }}">
+            <a class="nav-link" style="color: #1A5F3C;" href="{{ Route('kasir.transaksi.index') }}"><i class="fas fa-receipt"></i> 
             <span>Transaksi</span></a></li>
         </ul>
     </aside>

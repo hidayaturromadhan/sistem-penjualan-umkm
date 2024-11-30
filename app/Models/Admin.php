@@ -22,4 +22,10 @@ class Admin extends Authenticatable
     {
         return $this->belongsTo(Peran::class, 'peran_id');
     }
+
+    // Relasi dengan transaksi
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

@@ -8,7 +8,19 @@
   <link rel="stylesheet" href="{{ asset('assets/admin/modules/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/admin/modules/fontawesome/css/all.min.css') }}">
 
+  <!-- Favicons -->
+  <link href="{{ asset('assets/user/img/logo.png') }}" rel="icon">
+  <link href="{{ asset('assets/user/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
   <!-- CSS Libraries -->
+  <style>
+        /* Menambahkan efek hover pada tombol pagination */
+        .pagination .page-link:hover {
+            background-color: #d3d3d3; /* Warna abu-abu */
+            border-color: #d3d3d3; /* Warna border yang sama */
+            color: #333; /* Warna teks */
+        }
+  </style>
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/admin/css/style.css') }}">

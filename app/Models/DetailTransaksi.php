@@ -11,7 +11,7 @@ class DetailTransaksi extends Model
 
     protected $table = 'detail_transaksis'; // Nama tabel
 
-    protected $fillable = ['transaksi_id', 'produk_id', 'jumlah']; // Kolom yang bisa diisi
+    protected $fillable = ['transaksi_id', 'produk_id', 'total_barang', 'total_harga']; // Kolom yang bisa diisi
 
     /**
      * Relasi dengan model Transaksi

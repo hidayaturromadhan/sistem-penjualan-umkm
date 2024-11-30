@@ -9,16 +9,16 @@
             <li class="menu-header">Menu</li>
             <li class="{{ Route::is('admin.dashboard') }}" ><a class="nav-link" style="color: #1A5F3C;" href="{{ route('admin.dashboard') }}"><i class="fas fa-home" style="color: #1A5F3C;"></i> <span style="color: #1A5F3C;">Dashboard</span></a></li>
             <!-- Menu Produk -->
-            <li class="#">
-            <a class="nav-link" style="color: #1A5F3C;" href="#"><i class="fas fa-box"></i> 
+            <li class="{{ Request::is('product*') }}">
+            <a class="nav-link" style="color: #1A5F3C;" href="{{ route('admin.produk') }}"><i class="fas fa-box"></i> 
             <span>Produk</span></a></li>
             <!-- Menu Kasir -->
-            <li class="#">
-            <a class="nav-link" style="color: #1A5F3C;" href="#"><i class="fas fa-user-tie"></i> 
+            <li class="{{ Route::is('admin.kasir') }}">
+            <a class="nav-link" style="color: #1A5F3C;" href="{{ route('admin.kasir') }}"><i class="fas fa-user-tie"></i> 
             <span>Kasir</span></a></li>
             <!-- Menu Laporan -->
-            <li class="#">
-            <a class="nav-link" style="color: #1A5F3C;" href="#"><i class="	far fa-clipboard"></i> 
+            <li class="{{ Route::is('admin.laporanPenjualan') }}">
+            <a class="nav-link" style="color: #1A5F3C;" href="{{ Route('admin.laporanPenjualan') }}"><i class="	far fa-clipboard"></i> 
             <span>Laporan penjualan</span></a></li>
         </ul>
     </aside>
