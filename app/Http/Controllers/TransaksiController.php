@@ -41,60 +41,75 @@ class TransaksiController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
-            'status' => 'required|in:pending,selesai,dibatalkan', // Status transaksi
-            'produk' => 'required|array', // Produk harus ada dan berupa array
-            'produk.*' => 'exists:produks,id', // Setiap ID produk yang dipilih harus valid
-            'total_barang' => 'required|array', // Jumlah produk harus ada dan berupa array
-            'total_barang.*' => 'numeric|min:1', // Setiap jumlah harus angka dan lebih besar dari 0
+            'status' => 'required|in:pending,selesai,dibatalkan',
+            'produk' => 'required|array',
+            'produk.*' => 'exists:produks,id',
+            'total_barang' => 'required|array',
+            'total_barang.*' => 'integer|min:1',
         ]);
 
-        // Ambil kasir dari pengguna yang sedang login
-        $kasir = Auth::user(); // Data pengguna login
+        $kasir = Auth::user();
         if (!$kasir) {
-            return redirect()->back()->with('error', 'Kasir tidak ditemukan.');
+            // SweetAlert untuk kasus kasir tidak ditemukan
+            alert()->error('Gagal', 'Kasir tidak ditemukan.');
+            return redirect()->back();
         }
 
-        // Membuat transaksi baru
+        // Validasi stok produk
+        foreach ($request->produk as $index => $produkId) {
+            $produk = Produk::find($produkId);
+            if ($request->total_barang[$index] > $produk->stok) {
+                // SweetAlert untuk stok tidak mencukupi
+                alert()->error('Gagal', "Stok untuk produk {$produk->nama_produk} tidak mencukupi.");
+                return redirect()->back();
+            }
+        }
+
+        // Buat transaksi
         $transaksi = Transaksi::create([
-            'admin_id' => $kasir->id, // ID kasir yang sedang login
-            'status' => $request->status, // Status transaksi
-            'tanggal' => now(), // Menyimpan tanggal transaksi (sekarang)
-            'total_produk' => count($request->produk), // Total produk yang ditambahkan
-            'total_harga' => 0, // Akan dihitung setelah detail transaksi
+            'admin_id' => $kasir->id,
+            'status' => $request->status,
+            'tanggal' => now(),
+            'total_produk' => count($request->produk),
+            'total_harga' => 0,
         ]);
 
-        $totalHarga = 0; // Variabel untuk menghitung total harga
+        $totalHarga = 0;
 
-        // Menyimpan detail transaksi (produk yang dipilih dan jumlahnya)
-        foreach ($request->produk as $key => $produkId) {
+        foreach ($request->produk as $index => $produkId) {
             $produk = Produk::find($produkId);
 
-            // Menghitung harga total per produk
-            $totalHargaProduk = $produk->harga * $request->total_barang[$key];
+            $totalHargaProduk = $produk->harga * $request->total_barang[$index];
 
-            // Membuat detail transaksi untuk setiap produk
             DetailTransaksi::create([
-                'transaksi_id' => $transaksi->id, // ID transaksi yang baru dibuat
-                'produk_id' => $produkId, // ID produk
-                'total_barang' => $request->total_barang[$key], // Total barang
-                'total_harga' => $totalHargaProduk, // Total harga produk
+                'transaksi_id' => $transaksi->id,
+                'produk_id' => $produkId,
+                'total_barang' => $request->total_barang[$index],
+                'total_harga' => $totalHargaProduk,
             ]);
 
-            // Menambahkan total harga ke total transaksi
+            // Kurangi stok produk jika status transaksi "selesai"
+            if ($request->status === 'selesai') {
+                $produk->update([
+                    'stok' => $produk->stok - $request->total_barang[$index],
+                ]);
+            }
+
             $totalHarga += $totalHargaProduk;
         }
 
-        // Update total harga transaksi
         $transaksi->update([
-            'total_harga' => $totalHarga, // Menyimpan total harga transaksi
+            'total_harga' => $totalHarga,
         ]);
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('kasir.transaksi.index')
-                        ->with('success', 'Transaksi berhasil ditambahkan');
+        // SweetAlert untuk transaksi berhasil ditambahkan
+        alert()->success('Berhasil', 'Transaksi berhasil ditambahkan.');
+
+        return redirect()->route('kasir.transaksi.index');
     }
+
+
 
     public function edit($id)
     {
@@ -105,49 +120,78 @@ class TransaksiController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    // Validasi input
-    $request->validate([
-        'status' => 'required|in:pending,selesai,dibatalkan',
-        'produk' => 'required|array',
-        'produk.*' => 'exists:produks,id',
-        'total_barang' => 'required|array',
-        'total_barang.*' => 'integer|min:1',
-    ]);
-
-    // Ambil data transaksi
-    $transaksi = Transaksi::findOrFail($id);
-
-    // Update status transaksi
-    $transaksi->update([
-        'status' => $request->status,
-    ]);
-
-    // Hapus detail transaksi lama
-    $transaksi->detailTransaksis()->delete();
-
-    // Tambahkan detail transaksi baru
-    foreach ($request->produk as $index => $produkId) {
-        // Ambil produk untuk mendapatkan harga
-        $produk = Produk::find($produkId);
-        
-        // Hitung total harga
-        $totalHarga = $produk->harga * $request->total_barang[$index];
-        
-        // Insert detail transaksi dengan total harga yang dihitung
-        $transaksi->detailTransaksis()->create([
-            'produk_id' => $produkId,
-            'total_barang' => $request->total_barang[$index],
-            'total_harga' => $totalHarga,  // Masukkan nilai total_harga
+    {
+        $request->validate([
+            'status' => 'required|in:pending,selesai,dibatalkan',
+            'produk' => 'required|array',
+            'produk.*' => 'exists:produks,id',
+            'total_barang' => 'required|array',
+            'total_barang.*' => 'integer|min:1',
         ]);
+
+        $transaksi = Transaksi::findOrFail($id);
+
+        // Logika: Jika status sudah selesai, transaksi tidak bisa diedit
+        if ($transaksi->status === 'selesai') {
+            alert()->warning('Peringatan', 'Transaksi dengan status selesai tidak dapat diedit.');
+            return redirect()->back();
+        }
+
+        // Validasi stok produk
+        foreach ($request->produk as $index => $produkId) {
+            $produk = Produk::find($produkId);
+            if ($request->total_barang[$index] > $produk->stok) {
+                // SweetAlert untuk stok tidak mencukupi
+                alert()->error('Gagal Memperbarui', "Stok untuk produk {$produk->nama_produk} tidak mencukupi.");
+                return redirect()->back();
+            }
+        }
+
+        // Update status transaksi
+        $transaksi->update([
+            'status' => $request->status,
+        ]);
+
+        // Hapus detail transaksi lama
+        $transaksi->detailTransaksis()->delete();
+
+        $totalHarga = 0;
+
+        // Tambahkan detail transaksi baru
+        foreach ($request->produk as $index => $produkId) {
+            $produk = Produk::find($produkId);
+
+            $totalHargaProduk = $produk->harga * $request->total_barang[$index];
+
+            $transaksi->detailTransaksis()->create([
+                'produk_id' => $produkId,
+                'total_barang' => $request->total_barang[$index],
+                'total_harga' => $totalHargaProduk,
+            ]);
+
+            // Kurangi stok produk jika status transaksi "selesai"
+            if ($request->status === 'selesai') {
+                $produk->update([
+                    'stok' => $produk->stok - $request->total_barang[$index],
+                ]);
+            }
+
+            $totalHarga += $totalHargaProduk;
+        }
+
+        $transaksi->update([
+            'total_harga' => $totalHarga,
+        ]);
+
+        // SweetAlert untuk transaksi berhasil diperbarui
+        alert()->success('Berhasil', 'Transaksi berhasil diperbarui.');
+
+        return redirect()->route('kasir.transaksi.index');
     }
 
-    // Redirect ke halaman index dengan pesan sukses
-    return redirect()->route('kasir.transaksi.index')->with('success', 'Transaksi berhasil diperbarui.');
-}
 
 
-    
+
 }
 
 

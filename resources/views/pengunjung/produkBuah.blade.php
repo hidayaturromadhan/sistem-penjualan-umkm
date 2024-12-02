@@ -52,7 +52,6 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
     </div>
   </header>
 
@@ -69,78 +68,44 @@
         </div>
       </div><!-- End Page Title -->
 
-  <!-- Search Bar -->
-  <div class="container mt-3">
-    <div class="row">
-      <div class="col-md-12">
-        <form action="" method="GET" class="search-form">
-          <input type="text" name="search" placeholder="Cari buah..." class="search-input">
-          <button type="submit" class="search-button">Cari</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Produk Buah Section -->
-  <section id="produk-buah" class="produk-buah">
+    <!-- Search Bar -->
     <div class="container mt-3">
-        <div class="row gy-4">
-          <!-- Card 1 -->
-          <div class="col-lg-3 col-md-6">
-            <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-              <div class="buah-item">
-                <img src="{{ asset('assets/user/img/pisang.jpg') }}" alt="Gambar Produk" class="card-img">
-                <h4>Pisang</h4>
-                <p class="harga-produk">Rp 15,000 <span class="bobot-produk">/ Kg</span></p>
-                <div class="divider"></div>
-                <p class="status-tersedia">Tersedia</p> 
-              </div>
-            </a>
-          </div>
-
-
-          <!-- Card 2 -->
-          <div class="col-lg-3 col-md-6">
-            <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-              <div class="buah-item">
-                <img src="{{ asset('assets/user/img/jeruk.jpg') }}" alt="Gambar Produk" class="card-img">
-                <h4>Jeruk</h4>
-                <p class="harga-produk">Rp 10,000 <span class="bobot-produk">/ Kg</span></p>
-                <div class="divider"></div>
-                <p class="status-habis">Stok Habis</p> 
-              </div>
-            </a>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="col-lg-3 col-md-6">
-            <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-              <div class="buah-item">
-                <img src="{{ asset('assets/user/img/pear.jpg') }}" alt="Gambar Produk" class="card-img">
-                <h4>Pear</h4>
-                <p class="harga-produk">Rp 16,000 <span class="bobot-produk">/ Kg</span></p>
-                <div class="divider"></div>
-                <p class="status-habis">Stok Habis</p> 
-              </div>
-            </a>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="col-lg-3 col-md-6">
-            <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-              <div class="buah-item">
-                <img src="{{ asset('assets/user/img/salak.jpg') }}" alt="Gambar Produk" class="card-img">
-                <h4>Salak</h4>
-                <p class="harga-produk">Rp 12,000 <span class="bobot-produk">/ Kg</span></p>
-                <div class="divider"></div>
-                <p class="status-tersedia">Tersedia</p> 
-              </div>
-            </a>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form action="{{ route('pengunjung.produkBuah') }}" method="GET" class="search-form">
+                    <input type="text" name="search" placeholder="Cari buah..." class="search-input" value="{{ $search ?? '' }}">
+                    <button type="submit" class="search-button">Cari</button>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </section><!-- /Produk Buah Section -->
+
+    <!-- Produk Buah Section -->
+    <section id="produk-buah" class="produk-buah">
+        <div class="container mt-3">
+            <div class="row gy-4">
+                @forelse ($produks as $produk)
+                    <div class="col-lg-3 col-md-6">
+                        <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2C aku ingin menanyakan produk {{ $produk->nama_produk }}" class="card-link">
+                            <div class="buah-item">
+                                <img src="{{ asset('images/' . $produk->gambar) }}" alt="Gambar Produk" class="card-img">
+                                <h4>{{ $produk->nama_produk }}</h4>
+                                <p class="harga-produk">Rp {{ number_format($produk->harga, 0, ',', '.') }} / {{ $produk->stok_satuan }}</p>
+                                <div class="divider"></div>
+                                <p class="{{ $produk->stok > 0 ? 'status-tersedia' : 'status-habis' }}">
+                                    {{ $produk->stok > 0 ? 'Tersedia' : 'Stok Habis' }}
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <div class="col-md-12 text-center">
+                        <p>Produk tidak ditemukan.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
 
   <!-- Cara Beli Section -->
 <section id="cara-beli" class="cara-beli bg-light py-5">

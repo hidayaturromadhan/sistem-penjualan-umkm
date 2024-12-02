@@ -87,26 +87,41 @@
 
 <script>
     document.getElementById('add_more_produk').addEventListener('click', function () {
-        const produkRow = document.querySelector('.produk_row');
-        const newProdukRow = produkRow.cloneNode(true);
+    const produkRow = document.querySelector('.produk_row');
+    const newProdukRow = produkRow.cloneNode(true);
 
-        const inputs = newProdukRow.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            if (input.tagName === 'INPUT') input.value = '';
-            if (input.tagName === 'SELECT') input.selectedIndex = 0;
-        });
-
-        document.getElementById('produk_section').appendChild(newProdukRow);
-
-        newProdukRow.querySelector('.remove-produk').addEventListener('click', function () {
-            this.closest('.produk_row').remove();
-        });
+    // Kosongkan nilai input di baris baru
+    const inputs = newProdukRow.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        if (input.tagName === 'INPUT') input.value = '';
+        if (input.tagName === 'SELECT') input.selectedIndex = 0;
     });
 
-    document.querySelectorAll('.remove-produk').forEach(button => {
-        button.addEventListener('click', function () {
-            this.closest('.produk_row').remove();
-        });
+    document.getElementById('produk_section').appendChild(newProdukRow);
+
+    // Tambahkan event listener untuk tombol "Hapus" di baris baru
+    newProdukRow.querySelector('.remove-produk').addEventListener('click', function () {
+        validateAndRemoveRow(this);
     });
+});
+
+// Tambahkan event listener untuk tombol "Hapus" yang sudah ada
+document.querySelectorAll('.remove-produk').forEach(button => {
+    button.addEventListener('click', function () {
+        validateAndRemoveRow(this);
+    });
+});
+
+// Fungsi untuk validasi dan menghapus baris produk
+function validateAndRemoveRow(button) {
+    const produkRows = document.querySelectorAll('.produk_row');
+    
+    if (produkRows.length <= 1) {
+        alert('Minimal harus ada satu produk!');
+    } else {
+        button.closest('.produk_row').remove();
+    }
+}
+
 </script>
 @endsection

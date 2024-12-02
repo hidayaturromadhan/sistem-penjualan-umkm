@@ -39,10 +39,10 @@ class AuthController extends Controller
             // Redirect berdasarkan peran
             $user = Auth::user();
             if ($user->peran->nama_peran === 'Admin') {
-                toast('Selamat datang, Admin!', 'success');
+                toast('Selamat datang, '.$user->nama, 'success');
                 return redirect()->route('admin.dashboard');
             } elseif ($user->peran->nama_peran === 'Kasir') {
-                toast('Selamat datang, Kasir!', 'success');
+                toast('Selamat datang, '.$user->nama, 'success');
                 return redirect()->route('kasir.dashboard');
             }
 

@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-@section('title', 'Admin Product')
+@section('title', 'Admin Produk')
 @section('content')
 <div class="main-content">
     <section class="section">
