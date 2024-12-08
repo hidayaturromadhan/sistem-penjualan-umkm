@@ -14,15 +14,18 @@ class kasirController extends Controller
 
     public function index()
     {
-        // Ambil data produk buah dan sayur berdasarkan kategori
+        // Ambil data produk buah dengan pagination
         $buah = Produk::whereHas('kategori', function ($query) {
             $query->where('nama_kategori', 'buah');
-        })->get();
-
+        })->paginate(5); // Batasi 5 data per halaman
+    
+        // Ambil data produk sayur dengan pagination
         $sayur = Produk::whereHas('kategori', function ($query) {
             $query->where('nama_kategori', 'sayur');
-        })->get();
-
+        })->paginate(5); // Batasi 5 data per halaman
+    
+        // Return view dengan data
         return view('pages.kasir.dashboard', compact('buah', 'sayur'));
     }
+    
 }

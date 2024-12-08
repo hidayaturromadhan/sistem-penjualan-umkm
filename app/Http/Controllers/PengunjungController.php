@@ -11,10 +11,27 @@ class PengunjungController extends Controller
 {
     public function index()
     {
+        // Mengambil semua produk untuk ditampilkan di halaman utama
         $produks = Produk::all();
-        return view('pengunjung.beranda', compact('produks'));
-    }
 
+        // Mengambil top 8 produk berdasarkan total terjual
+        $topProduk = DB::table('detail_transaksis')
+            ->join('produks', 'detail_transaksis.produk_id', '=', 'produks.id')
+            ->join('transaksis', 'detail_transaksis.transaksi_id', '=', 'transaksis.id')
+            ->select(
+                'produks.nama_produk',
+                'produks.gambar',
+                'produks.stok_satuan',
+                DB::raw('SUM(detail_transaksis.total_barang) as total_terjual')
+            )
+            ->where('transaksis.status', 'selesai')
+            ->groupBy('detail_transaksis.produk_id', 'produks.nama_produk', 'produks.gambar', 'produks.stok_satuan')
+            ->orderByDesc('total_terjual')
+            ->limit(8)
+            ->get();
+
+        return view('pengunjung.beranda', compact('produks', 'topProduk'));
+    }
 
     public function produkBuah(Request $request)
     {

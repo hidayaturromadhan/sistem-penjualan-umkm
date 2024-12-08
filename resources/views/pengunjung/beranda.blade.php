@@ -111,105 +111,34 @@
       </div>
     </section>
 
-    <!-- Pricing Section -->
     <section id="pricing" class="pricing">
-
       <!-- Section Title -->
       <div class="container">
-        <h2 style="text-align: center; font-weight: 550; font-size: 20px;">Top Produk</h2>
-      </div><!-- End Section Title -->
+        <h2 class="text-center font-weight-bold">Top Produk</h2>
+      </div>
 
       <div class="container mt-5">
         <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row gy-4">
-                <!-- Card 1 -->
-                <div class="col-lg-3 col-md-6">
-                  <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/pisang.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Pisang</h3>
+            @foreach ($topProduk->chunk(4) as $chunk) <!-- Bagi produk menjadi grup 4 -->
+              <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                <div class="row gy-4">
+                  @foreach ($chunk as $produk)
+                    <div class="col-lg-3 col-md-6">
+                      <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20produk {{ $produk->nama_produk }}" class="card-link">
+                        <div class="pricing-item text-center">
+                          <img src="{{ asset('images/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="card-img">
+                          <h3>{{ $produk->nama_produk }}</h3>
+                        </div>
+                      </a>
                     </div>
-                  </a>
-                </div>
-      
-                <!-- Card 2 -->
-                <div class="col-lg-3 col-md-6">
-                  <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/jeruk.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Jeruk</h3>
-                    </div>
-                  </a>
-                </div>
-      
-                <!-- Card 3 -->
-                <div class="col-lg-3 col-md-6">
-                  <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/bawang_putih.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Bawang Putih</h3>
-                    </div>
-                  </a>
-                </div>
-      
-                <!-- Card 4 -->
-                <div class="col-lg-3 col-md-6">
-                  <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/pear.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Pear</h3>
-                    </div>
-                  </a>
+                  @endforeach
                 </div>
               </div>
-            </div>
-      
-            <div class="carousel-item">
-              <div class="row gy-4">
-                <!-- Card 5 -->
-                <div class="col-lg-3 col-md-6">
-                  <a href="https://api.whatsapp.com/send?phone=6282285875473&text=Halo%2Caku%20ingin%20menanyakan%20prihal%20transaksi" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/salak.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Salak</h3>
-                    </div>
-                  </a>
-                </div>
-      
-                <!-- Card 6, 7, and 8 -->
-                <!-- <div class="col-lg-3 col-md-6">
-                  <a href="link5.html" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/pear.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Pear</h3>
-                    </div>
-                  </a>
-                </div>
-      
-                <div class="col-lg-3 col-md-6">
-                  <a href="link5.html" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/pear.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Pear</h3>
-                    </div>
-                  </a>
-                </div>
-      
-                <div class="col-lg-3 col-md-6">
-                  <a href="link5.html" class="card-link">
-                    <div class="pricing-item">
-                      <img src="{{ asset('assets/user/img/pear.jpg') }}" alt="Gambar Produk" class="card-img">
-                      <h3>Pear</h3>
-                    </div>
-                  </a>
-                </div> -->
-              </div>
-            </div>
+            @endforeach
           </div>
-      
-          <!-- Controls -->
+
+          <!-- Carousel Controls -->
           <button class="carousel-control-prev custom-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -219,15 +148,13 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        
-        <div class="btn-wrap mt-5">
-          <p><a href="{{ route('pengunjung.produkBuah') }}" class="btn-selengkapnya">Selengkapnya</a></p>
+
+        <div class="btn-wrap mt-5 text-center">
+          <a href="{{ route('pengunjung.produkBuah') }}" class="btn-selengkapnya">Selengkapnya</a>
         </div>
       </div>
+    </section>
 
-      </div>
-
-    </section><!-- /Pricing Section -->
 
     <footer id="footer" class="footer">
       <div class="container">
